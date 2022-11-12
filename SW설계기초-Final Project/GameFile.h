@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "UI.h"
 #include "Timer.h"
+#include "Effect.h"
 #ifndef GAMEFILE_H
 #define GAMEFILE_H
 
@@ -20,7 +21,7 @@ void StoryMode() {
 		ShowMap();
 		ShowStageNumber();
 		TimeCheckerStart();
-		while (1) { InvalidateMap(); InvalidateItem(); InvalidateEnemy();  InvalidatePlayer(); if (GameOver()) return; if (StageOver()) break; }
+		while (1) { InvalidateMap(); InvalidateEffect(); InvalidateItem(); InvalidateEnemy();  InvalidatePlayer(); if (GameOver()) return; if (StageOver()) break; }
 	}
 }
 

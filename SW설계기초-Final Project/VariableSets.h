@@ -196,4 +196,18 @@ int itemList[] = { 1, 2, 3, 4, 5 };
 // 아이템 사용 버그 제한 변수
 int CheckFLAG = 0;
 
+//--------------------------------------------------------------------
+//-----------------------EFFECT 상수----------------------------------
+
+//EFFECT 움직임 버퍼 시간
+#define EFFECTTIMEBUFFER 0.05
+double EffectInputTime = 0;
+double EffectCreationLoop = 1;
+
+//EFFECT X, Y 좌표
+int EFFECT_POS_X, EFFECT_POS_Y;
+
+// EFFECT 체크용 변수
+int EffectCheck = 0;
+
 #endif // !VARIABLESETS_H

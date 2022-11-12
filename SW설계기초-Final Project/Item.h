@@ -64,7 +64,9 @@ void flashRight() {
 void itemSpeedUp() { CurSpeed += SPEEDINCREASERATE; }	//플레이어 캐릭터 속도 증가
 void itemBulletSpeedDown() {};													//탄막 속도 감소
 void itemInvinsibility() { Invinsible = 1; }										//무적 판정
-void itemFlash() {																		//대쉬 스킬
+void itemFlash() { //대쉬 스킬
+	EFFECT_POS_X = PLAYER_POS_X;
+	EFFECT_POS_Y = PLAYER_POS_Y;
 	if (!flashFLAG) flashFLAG = 1;
 	if (GetAsyncKeyState(LEFT) & 0x8000) flashLeft();
 	if (GetAsyncKeyState(RIGHT) & 0x8000) flashRight();
@@ -105,10 +107,10 @@ void getItem() { SubSkill = CurSkill; CurSkill = ItemNumber; }
 void itemTrigger(int UsingSkill) {
 	switch (UsingSkill) {
 	case 1: itemSpeedUp(); CheckFLAG = 1; break;
-	case 2: itemBulletSpeedDown(); CheckFLAG = 1; break;
-	case 3: itemInvinsibility(); CheckFLAG = 1; break;
-	case 4: itemFlash(); CheckFLAG = 1; break;
-	case 5: itemDeleteBullet(); CheckFLAG = 1; break;
+	case 2: itemBulletSpeedDown(); CheckFLAG = 2; break;
+	case 3: itemInvinsibility(); CheckFLAG = 3; break;
+	case 4: itemFlash(); CheckFLAG = 4; break;
+	case 5: itemDeleteBullet(); CheckFLAG = 5; break;
 	default: break;
 	}
 }
@@ -116,11 +118,11 @@ void itemTrigger(int UsingSkill) {
 //아이템 스킬 해제 함수
 void DeactivateSkillItem() { 
 	switch (UsingSkill) {
-	case 1: CurSpeed -= SPEEDINCREASERATE; CheckFLAG = 0; break;
-	case 2: CheckFLAG = 0; break;
-	case 3: Invinsible = 0; CheckFLAG = 0; break;
-	case 4: flashFLAG = 0; CheckFLAG = 0; break;
-	case 5: CheckFLAG = 0; break;
+	case 1: CurSpeed -= SPEEDINCREASERATE; CheckFLAG = 0; EffectCheck = 0; break;
+	case 2: CheckFLAG = 0; EffectCheck = 0; break;
+	case 3: Invinsible = 0; CheckFLAG = 0; EffectCheck = 0; break;
+	case 4: flashFLAG = 0; CheckFLAG = 0; EffectCheck = 0; break;
+	case 5: CheckFLAG = 0; EffectCheck = 0; break;
 	default: break;
 	}
 	UsingSkill = 0;
@@ -128,7 +130,7 @@ void DeactivateSkillItem() {
 
 //아이템 스킬 발동 함수
 void ActivateSkillItem() {
-	if (CheckFLAG == 1) { return; }
+	if (CheckFLAG != 0) { return; }
 	if (UsingSkill != 0) { if (flashFLAG != 0) { itemFlash(); } return; }
 	if (!CurSkill) return;
 	HidePreviousCurrentNSubSkill();									//UI 갱신을 위해 넣은 숨김함수

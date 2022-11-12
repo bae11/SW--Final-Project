@@ -139,6 +139,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="VariableSets.h" />
+    <ClInclude Include="Effect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
